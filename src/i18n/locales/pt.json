@@ -19,12 +19,43 @@
       "locationTitle": "Localização e Horário"
     },
     "reservation": {
-      "title": "Reservas",
-      "placeholder": "Conteúdo em breve"
+      "title": "Reservas"
     },
     "contact": {
-      "title": "Contacto",
-      "placeholder": "Conteúdo em breve"
+      "title": "Contacto"
+    }
+  },
+  "forms": {
+    "contact": {
+      "name": "Nome",
+      "email": "Email",
+      "subject": "Assunto",
+      "message": "Mensagem",
+      "submit": "Enviar mensagem",
+      "sending": "A enviar...",
+      "success": "Mensagem enviada com sucesso! Entraremos em contacto brevemente."
+    },
+    "reservation": {
+      "name": "Nome",
+      "email": "Email",
+      "phone": "Telefone",
+      "date": "Data",
+      "time": "Hora",
+      "guests": "Número de pessoas",
+      "notes": "Notas (opcional)",
+      "submit": "Pedir reserva",
+      "sending": "A enviar...",
+      "success": "Pedido de reserva enviado com sucesso! Entraremos em contacto para confirmar."
+    },
+    "errors": {
+      "invalid_data": "Verifica os dados preenchidos — algum campo não é válido.",
+      "invalid_json": "Ocorreu um erro ao enviar o formulário. Tenta novamente.",
+      "payload_too_large": "O pedido é demasiado grande.",
+      "method_not_allowed": "Ocorreu um erro inesperado. Tenta novamente.",
+      "rate_limited": "Demasiados pedidos em pouco tempo. Aguarda um minuto e tenta novamente.",
+      "send_failed": "Não foi possível enviar. Tenta novamente mais tarde.",
+      "network": "Não foi possível ligar ao servidor. Verifica a tua ligação à internet.",
+      "generic": "Ocorreu um erro. Tenta novamente."
     }
   },
   "footer": {

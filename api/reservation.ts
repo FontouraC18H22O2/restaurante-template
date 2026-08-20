@@ -9,30 +9,33 @@ import { MAX_BODY_BYTES, jsonResponse, getClientIp } from './_lib/http'
 export const config = { runtime: 'edge' }
 
 export default async function handler(request: Request): Promise<Response> {
+  // O "error" devolvido é sempre um código curto (não texto), para o frontend
+  // poder traduzir a mensagem consoante o idioma ativo no site (PT/EN) — ver
+  // forms.errors.* em src/i18n/locales/.
   if (request.method !== 'POST') {
-    return jsonResponse({ error: 'Método não permitido' }, 405)
+    return jsonResponse({ error: 'method_not_allowed' }, 405)
   }
 
   const contentLength = Number(request.headers.get('content-length') ?? '0')
   if (contentLength > MAX_BODY_BYTES) {
-    return jsonResponse({ error: 'Pedido demasiado grande' }, 413)
+    return jsonResponse({ error: 'payload_too_large' }, 413)
   }
 
   const ip = getClientIp(request)
   if (isRateLimited(ip)) {
-    return jsonResponse({ error: 'Demasiados pedidos. Tenta novamente daqui a pouco.' }, 429)
+    return jsonResponse({ error: 'rate_limited' }, 429)
   }
 
   let body: unknown
   try {
     body = await request.json()
   } catch {
-    return jsonResponse({ error: 'JSON inválido' }, 400)
+    return jsonResponse({ error: 'invalid_json' }, 400)
   }
 
   const result = reservationSchema.safeParse(body)
   if (!result.success) {
-    return jsonResponse({ error: 'Dados inválidos', issues: result.error.flatten() }, 400)
+    return jsonResponse({ error: 'invalid_data', issues: result.error.flatten() }, 400)
   }
 
   const { name, email, phone, date, time, guests, notes, website } = result.data
@@ -59,7 +62,7 @@ export default async function handler(request: Request): Promise<Response> {
     })
   } catch (error) {
     console.error('Erro ao enviar email de reserva:', error)
-    return jsonResponse({ error: 'Não foi possível enviar o pedido de reserva. Tenta novamente mais tarde.' }, 502)
+    return jsonResponse({ error: 'send_failed' }, 502)
   }
 
   return jsonResponse({ ok: true })

@@ -19,12 +19,43 @@
       "locationTitle": "Location and Hours"
     },
     "reservation": {
-      "title": "Reservations",
-      "placeholder": "Content coming soon"
+      "title": "Reservations"
     },
     "contact": {
-      "title": "Contact",
-      "placeholder": "Content coming soon"
+      "title": "Contact"
+    }
+  },
+  "forms": {
+    "contact": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! We'll get back to you shortly."
+    },
+    "reservation": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "date": "Date",
+      "time": "Time",
+      "guests": "Number of guests",
+      "notes": "Notes (optional)",
+      "submit": "Request reservation",
+      "sending": "Sending...",
+      "success": "Reservation request sent successfully! We'll get back to you to confirm."
+    },
+    "errors": {
+      "invalid_data": "Check the fields you filled in — something isn't valid.",
+      "invalid_json": "Something went wrong sending the form. Please try again.",
+      "payload_too_large": "The request is too large.",
+      "method_not_allowed": "Something unexpected happened. Please try again.",
+      "rate_limited": "Too many requests in a short time. Wait a minute and try again.",
+      "send_failed": "Couldn't send it. Please try again later.",
+      "network": "Couldn't reach the server. Check your internet connection.",
+      "generic": "Something went wrong. Please try again."
     }
   },
   "footer": {
