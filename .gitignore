@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+*.local
+*.tsbuildinfo
+
+# Segredos — nunca commitar (RESEND_API_KEY, etc.)
+.env
+.env.local
+.env.*.local
+
+.vercel
+*.log
+.DS_Store
