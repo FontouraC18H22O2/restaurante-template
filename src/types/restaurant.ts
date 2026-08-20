@@ -26,6 +26,11 @@ export interface OpeningHoursEntry {
   hours: LocalizedText
 }
 
+export interface GalleryPhoto {
+  src: string
+  alt: LocalizedText
+}
+
 export interface RestaurantInfo {
   /** Nome comercial — não traduzido. */
   name: string

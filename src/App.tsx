@@ -1,8 +1,8 @@
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Hero from './sections/Hero'
-import Menu from './sections/Menu'
 import About from './sections/About'
+import Menu from './sections/Menu'
 import Gallery from './sections/Gallery'
 import Reservation from './sections/Reservation'
 import Contact from './sections/Contact'
@@ -15,8 +15,8 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <Menu />
         <About />
+        <Menu />
         <Gallery />
         <Reservation />
         <Contact />

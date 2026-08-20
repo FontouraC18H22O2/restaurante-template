@@ -15,14 +15,14 @@
       "title": "About Us"
     },
     "gallery": {
-      "title": "Gallery",
-      "locationTitle": "Location and Hours"
+      "title": "Gallery"
     },
     "reservation": {
       "title": "Reservations"
     },
     "contact": {
-      "title": "Contact"
+      "title": "Contact",
+      "locationTitle": "Location and Hours"
     }
   },
   "forms": {
@@ -41,6 +41,7 @@
       "phone": "Phone",
       "date": "Date",
       "time": "Time",
+      "selectTime": "Choose a time",
       "guests": "Number of guests",
       "notes": "Notes (optional)",
       "submit": "Request reservation",
@@ -53,6 +54,7 @@
       "payload_too_large": "The request is too large.",
       "method_not_allowed": "Something unexpected happened. Please try again.",
       "rate_limited": "Too many requests in a short time. Wait a minute and try again.",
+      "slot_full": "There are no seats left for that time. Please choose another time or day.",
       "send_failed": "Couldn't send it. Please try again later.",
       "network": "Couldn't reach the server. Check your internet connection.",
       "generic": "Something went wrong. Please try again."

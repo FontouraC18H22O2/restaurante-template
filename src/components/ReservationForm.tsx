@@ -1,17 +1,24 @@
 import type { FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useFormSubmission } from '../hooks/useFormSubmission'
+import { RESERVATION_TIME_SLOTS } from '../data/reservationSlots'
 import HoneypotField from './HoneypotField'
 import FormField from './FormField'
+import FormSelect from './FormSelect'
 import FormTextArea from './FormTextArea'
 
 function ReservationForm() {
   const { t } = useTranslation()
   const { status, errorCode, submit } = useFormSubmission('/api/reservation')
 
-  // Impede escolher datas no passado diretamente no seletor do browser —
-  // a validação que conta a sério é sempre a do servidor (ver api/_lib/validation.ts).
-  const today = new Date().toISOString().slice(0, 10)
+  // Limita o seletor de data no browser a um intervalo próximo (hoje até daqui
+  // a 30 dias) — mantido em sincronia com RESERVATION_MAX_DAYS_AHEAD em
+  // api/_lib/validation.ts, que é sempre a validação que conta a sério.
+  const today = new Date()
+  const maxDate = new Date(today)
+  maxDate.setDate(maxDate.getDate() + 30)
+  const todayISO = today.toISOString().slice(0, 10)
+  const maxDateISO = maxDate.toISOString().slice(0, 10)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -85,9 +92,26 @@ function ReservationForm() {
         defaultValue={2}
       />
 
-      <FormField id="reservation-date" name="date" type="date" label={t('forms.reservation.date')} required min={today} />
+      <FormField
+        id="reservation-date"
+        name="date"
+        type="date"
+        label={t('forms.reservation.date')}
+        required
+        min={todayISO}
+        max={maxDateISO}
+      />
 
-      <FormField id="reservation-time" name="time" type="time" label={t('forms.reservation.time')} required />
+      <FormSelect id="reservation-time" name="time" label={t('forms.reservation.time')} required defaultValue="">
+        <option value="" disabled>
+          {t('forms.reservation.selectTime')}
+        </option>
+        {RESERVATION_TIME_SLOTS.map((slot) => (
+          <option key={slot} value={slot}>
+            {slot}
+          </option>
+        ))}
+      </FormSelect>
 
       <FormTextArea
         id="reservation-notes"

@@ -15,3 +15,6 @@ dist-ssr
 
 # Ficheiros internos do Claude Code
 .claude/
+
+# Instrucoes pessoais do projeto - nao deve ficar exposto no repositorio
+CLAUDE.MD

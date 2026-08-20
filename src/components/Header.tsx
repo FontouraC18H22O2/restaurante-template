@@ -5,7 +5,7 @@ import { restaurantInfo } from '../data/restaurantInfo'
 
 // IDs das secções, na ordem em que aparecem na página — usados tanto para
 // gerar os links de navegação como os ids das âncoras em cada <section>.
-const NAV_ITEMS = ['hero', 'menu', 'about', 'gallery', 'reservation', 'contact'] as const
+const NAV_ITEMS = ['hero', 'about', 'menu', 'gallery', 'reservation', 'contact'] as const
 
 function Header() {
   const { t, i18n } = useTranslation()

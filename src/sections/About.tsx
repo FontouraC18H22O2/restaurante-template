@@ -9,7 +9,7 @@ function About() {
   const localize = useLocalizedText()
 
   return (
-    <SectionContainer id="about">
+    <SectionContainer id="about" className="bg-cream-dark">
       <SectionHeading>{t('sections.about.title')}</SectionHeading>
       <p className="mt-4 max-w-2xl text-ink-soft">{localize(restaurantInfo.description)}</p>
     </SectionContainer>

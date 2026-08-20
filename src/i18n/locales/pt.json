@@ -15,14 +15,14 @@
       "title": "Sobre Nós"
     },
     "gallery": {
-      "title": "Galeria",
-      "locationTitle": "Localização e Horário"
+      "title": "Galeria"
     },
     "reservation": {
       "title": "Reservas"
     },
     "contact": {
-      "title": "Contacto"
+      "title": "Contacto",
+      "locationTitle": "Localização e Horário"
     }
   },
   "forms": {
@@ -41,6 +41,7 @@
       "phone": "Telefone",
       "date": "Data",
       "time": "Hora",
+      "selectTime": "Escolhe uma hora",
       "guests": "Número de pessoas",
       "notes": "Notas (opcional)",
       "submit": "Pedir reserva",
@@ -53,6 +54,7 @@
       "payload_too_large": "O pedido é demasiado grande.",
       "method_not_allowed": "Ocorreu um erro inesperado. Tenta novamente.",
       "rate_limited": "Demasiados pedidos em pouco tempo. Aguarda um minuto e tenta novamente.",
+      "slot_full": "Já não há lugares disponíveis para esse horário. Escolhe outra hora ou outro dia.",
       "send_failed": "Não foi possível enviar. Tenta novamente mais tarde.",
       "network": "Não foi possível ligar ao servidor. Verifica a tua ligação à internet.",
       "generic": "Ocorreu um erro. Tenta novamente."

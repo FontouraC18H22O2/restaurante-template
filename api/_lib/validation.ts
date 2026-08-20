@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { RESERVATION_TIME_SLOTS } from '../../src/data/reservationSlots'
 
 // Limites de tamanho — proteção contra payloads anormalmente grandes/abuso,
 // independentemente do limite de bytes já aplicado ao pedido HTTP como um todo.
@@ -7,7 +8,9 @@ const EMAIL_MAX = 200
 const SUBJECT_MAX = 150
 const MESSAGE_MAX = 2000
 const PHONE_MAX = 30
-const RESERVATION_MAX_DAYS_AHEAD = 180
+// Mantido em sincronia com RESERVATION_MAX_DAYS_AHEAD em
+// src/components/ReservationForm.tsx (limite do seletor de data no browser).
+const RESERVATION_MAX_DAYS_AHEAD = 30
 
 // Honeypot: campo invisível para pessoas mas que os bots de spam costumam
 // preencher automaticamente. Aceita QUALQUER valor aqui (não rejeitamos na
@@ -47,8 +50,10 @@ export const reservationSchema = z.object({
   date: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, 'Data inválida')
-    .refine(isValidReservationDate, 'Escolhe uma data entre hoje e os próximos 6 meses'),
-  time: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Hora inválida'),
+    .refine(isValidReservationDate, 'Escolhe uma data entre hoje e os próximos 30 dias'),
+  // Só aceita um dos horários fixos definidos em src/data/reservationSlots.ts
+  // (necessário para conseguirmos somar reservas por horário e controlar a lotação).
+  time: z.enum(RESERVATION_TIME_SLOTS, { message: 'Hora inválida' }),
   guests: z.coerce.number().int().min(1, 'Mínimo de 1 pessoa').max(20, 'Máximo de 20 pessoas'),
   notes: z.string().trim().max(MESSAGE_MAX).optional().or(z.literal('')),
   website: honeypot,

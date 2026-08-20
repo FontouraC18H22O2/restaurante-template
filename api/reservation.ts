@@ -1,6 +1,7 @@
 import { reservationSchema } from './_lib/validation'
 import { sendNotificationEmail, escapeHtml } from './_lib/email'
 import { isRateLimited } from './_lib/rateLimit'
+import { tryReserveSlot, releaseSlot } from './_lib/capacity'
 import { MAX_BODY_BYTES, jsonResponse, getClientIp } from './_lib/http'
 
 // Edge Function: usa a Web API padrão (Request/Response), sem dependência do
@@ -41,9 +42,18 @@ export default async function handler(request: Request): Promise<Response> {
   const { name, email, phone, date, time, guests, notes, website } = result.data
 
   // Honeypot preenchido = bot. Respondemos "sucesso" para não revelar ao bot
-  // que foi apanhado, mas não enviamos email nenhum.
+  // que foi apanhado, mas não enviamos email nem reservamos lugar nenhum.
   if (website) {
     return jsonResponse({ ok: true })
+  }
+
+  // Incrementa atomicamente o total de pessoas já reservadas para este
+  // horário. Se ultrapassar a lotação máxima, o pedido é recusado aqui —
+  // é isto que garante que, havendo dois pedidos em simultâneo para o
+  // último lugar, só um deles é aceite (ver comentário em _lib/capacity.ts).
+  const slotAvailable = await tryReserveSlot(date, time, guests)
+  if (!slotAvailable) {
+    return jsonResponse({ error: 'slot_full' }, 409)
   }
 
   try {
@@ -62,6 +72,9 @@ export default async function handler(request: Request): Promise<Response> {
     })
   } catch (error) {
     console.error('Erro ao enviar email de reserva:', error)
+    // O restaurante nunca chegou a ver este pedido — liberta o lugar reservado
+    // para não ficar capacidade presa por uma reserva que ninguém vai processar.
+    await releaseSlot(date, time, guests)
     return jsonResponse({ error: 'send_failed' }, 502)
   }
 

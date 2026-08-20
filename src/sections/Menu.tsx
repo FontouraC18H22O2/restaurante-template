@@ -9,7 +9,7 @@ function Menu() {
   const localize = useLocalizedText()
 
   return (
-    <SectionContainer id="menu" className="bg-cream-dark">
+    <SectionContainer id="menu">
       <SectionHeading>{t('sections.menu.title')}</SectionHeading>
 
       <div className="mt-10 space-y-12">
