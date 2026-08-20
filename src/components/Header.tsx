@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { supportedLanguages, type SupportedLanguage } from '../i18n'
+import { restaurantInfo } from '../data/restaurantInfo'
 
 // IDs das secções, na ordem em que aparecem na página — usados tanto para
 // gerar os links de navegação como os ids das âncoras em cada <section>.
@@ -14,7 +15,7 @@ function Header() {
     <header className="sticky top-0 z-50 h-16 border-b border-neutral-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
         <a href="#hero" className="text-lg font-semibold text-neutral-800">
-          Restaurante
+          {restaurantInfo.name}
         </a>
 
         <nav className="hidden md:flex md:items-center md:gap-6">

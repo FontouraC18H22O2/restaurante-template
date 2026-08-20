@@ -8,21 +8,15 @@
     "contact": "Contacto"
   },
   "sections": {
-    "hero": {
-      "title": "Bem-vindo ao Restaurante",
-      "subtitle": "Conteúdo em breve"
-    },
     "menu": {
-      "title": "O Nosso Menu",
-      "placeholder": "Conteúdo em breve"
+      "title": "O Nosso Menu"
     },
     "about": {
-      "title": "Sobre Nós",
-      "placeholder": "Conteúdo em breve"
+      "title": "Sobre Nós"
     },
     "gallery": {
       "title": "Galeria",
-      "placeholder": "Conteúdo em breve"
+      "locationTitle": "Localização e Horário"
     },
     "reservation": {
       "title": "Reservas",

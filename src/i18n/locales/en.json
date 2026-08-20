@@ -8,21 +8,15 @@
     "contact": "Contact"
   },
   "sections": {
-    "hero": {
-      "title": "Welcome to the Restaurant",
-      "subtitle": "Content coming soon"
-    },
     "menu": {
-      "title": "Our Menu",
-      "placeholder": "Content coming soon"
+      "title": "Our Menu"
     },
     "about": {
-      "title": "About Us",
-      "placeholder": "Content coming soon"
+      "title": "About Us"
     },
     "gallery": {
       "title": "Gallery",
-      "placeholder": "Content coming soon"
+      "locationTitle": "Location and Hours"
     },
     "reservation": {
       "title": "Reservations",

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { restaurantInfo } from '../data/restaurantInfo'
 
 function Footer() {
   const { t } = useTranslation()
@@ -6,7 +7,7 @@ function Footer() {
 
   return (
     <footer className="border-t border-neutral-200 px-4 py-8 text-center text-sm text-neutral-500">
-      © {year} Restaurante. {t('footer.rights')}
+      © {year} {restaurantInfo.name}. {t('footer.rights')}
     </footer>
   )
 }
