@@ -34,7 +34,7 @@ function ReservationForm() {
 
   if (status === 'success') {
     return (
-      <p role="status" className="max-w-2xl rounded border border-green-200 bg-green-50 p-4 text-green-800">
+      <p role="status" className="max-w-2xl rounded border border-olive bg-cream p-4 text-olive-dark">
         {t('forms.reservation.success')}
       </p>
     )
@@ -107,7 +107,7 @@ function ReservationForm() {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-fit rounded bg-neutral-900 px-5 py-2 text-sm font-medium text-white hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-50 sm:col-span-2"
+        className="w-fit rounded bg-terracotta px-5 py-2 text-sm font-medium text-cream hover:bg-terracotta-dark disabled:cursor-not-allowed disabled:opacity-50 sm:col-span-2"
       >
         {status === 'loading' ? t('forms.reservation.sending') : t('forms.reservation.submit')}
       </button>

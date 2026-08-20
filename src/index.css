@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+/*
+ * Tokens de tema — paleta calorosa/rústica + tipografia serif/sans-serif.
+ * O Tailwind v4 gera automaticamente classes utilitárias a partir destes
+ * nomes (ex: --color-terracotta vira bg-terracotta, text-terracotta, etc.).
+ * Para adaptar o template a outro cliente, é aqui que se troca a paleta —
+ * os componentes usam sempre os nomes semânticos, nunca cores "cruas".
+ */
+@theme {
+  --color-cream: #fbf7f0;
+  --color-cream-dark: #f1e4d0;
+  --color-ink: #2c1f16;
+  --color-ink-soft: #6b5642;
+  --color-terracotta: #b5502e;
+  --color-terracotta-dark: #96401f;
+  --color-olive: #6e7b4a;
+  --color-olive-dark: #565f39;
+  --color-border: #e3d3bd;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
 /* Scroll suave até cada secção ao clicar nos links do menu (âncoras #id) */
 html {
   scroll-behavior: smooth;

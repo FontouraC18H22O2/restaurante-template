@@ -11,7 +11,7 @@ import Contact from './sections/Contact'
 // na navegação (ver NAV_ITEMS em components/Header.tsx).
 function App() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-cream">
       <Header />
       <main>
         <Hero />

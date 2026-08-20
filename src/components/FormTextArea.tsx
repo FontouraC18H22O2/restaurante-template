@@ -9,12 +9,12 @@ interface FormTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> 
 function FormTextArea({ id, label, containerClassName = '', className = '', ...textareaProps }: FormTextAreaProps) {
   return (
     <div className={containerClassName}>
-      <label htmlFor={id} className="block text-sm font-medium text-neutral-700">
+      <label htmlFor={id} className="block text-sm font-medium text-ink">
         {label}
       </label>
       <textarea
         id={id}
-        className={`mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm focus:border-neutral-500 focus:outline-none ${className}`}
+        className={`mt-1 w-full rounded border border-border bg-cream px-3 py-2 text-sm text-ink focus:border-terracotta focus:outline-none ${className}`}
         {...textareaProps}
       />
     </div>

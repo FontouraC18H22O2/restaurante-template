@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import SectionContainer from '../components/SectionContainer'
+import SectionHeading from '../components/SectionHeading'
 import ReservationForm from '../components/ReservationForm'
 
 function Reservation() {
@@ -7,7 +8,7 @@ function Reservation() {
 
   return (
     <SectionContainer id="reservation">
-      <h2 className="text-3xl font-semibold text-neutral-900">{t('sections.reservation.title')}</h2>
+      <SectionHeading>{t('sections.reservation.title')}</SectionHeading>
       <div className="mt-8">
         <ReservationForm />
       </div>

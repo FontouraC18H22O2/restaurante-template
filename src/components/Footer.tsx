@@ -6,7 +6,7 @@ function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-neutral-200 px-4 py-8 text-center text-sm text-neutral-500">
+    <footer className="border-t border-border bg-cream px-4 py-8 text-center text-sm text-ink-soft">
       © {year} {restaurantInfo.name}. {t('footer.rights')}
     </footer>
   )

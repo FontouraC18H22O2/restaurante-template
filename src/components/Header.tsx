@@ -12,15 +12,15 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 h-16 border-b border-neutral-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 h-16 border-b border-border bg-cream/95 backdrop-blur">
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
-        <a href="#hero" className="text-lg font-semibold text-neutral-800">
+        <a href="#hero" className="font-display text-lg font-semibold text-ink">
           {restaurantInfo.name}
         </a>
 
         <nav className="hidden md:flex md:items-center md:gap-6">
           {NAV_ITEMS.map((item) => (
-            <a key={item} href={`#${item}`} className="text-sm text-neutral-600 hover:text-neutral-900">
+            <a key={item} href={`#${item}`} className="text-sm text-ink-soft hover:text-terracotta">
               {t(`nav.${item}`)}
             </a>
           ))}
@@ -34,7 +34,7 @@ function Header() {
                 type="button"
                 onClick={() => i18n.changeLanguage(lang)}
                 aria-pressed={i18n.resolvedLanguage === lang}
-                className="rounded border border-neutral-300 px-2 py-1 text-xs uppercase text-neutral-600 hover:bg-neutral-100 aria-pressed:bg-neutral-800 aria-pressed:text-white"
+                className="rounded border border-border px-2 py-1 text-xs uppercase text-ink-soft hover:bg-cream-dark aria-pressed:border-terracotta aria-pressed:bg-terracotta aria-pressed:text-cream"
               >
                 {lang}
               </button>
@@ -43,7 +43,7 @@ function Header() {
 
           <button
             type="button"
-            className="md:hidden"
+            className="text-ink md:hidden"
             aria-label="Abrir menu de navegação"
             aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen((open) => !open)}
@@ -57,12 +57,12 @@ function Header() {
       </div>
 
       {isMenuOpen && (
-        <nav className="flex flex-col gap-1 border-t border-neutral-200 bg-white px-4 py-3 md:hidden">
+        <nav className="flex flex-col gap-1 border-t border-border bg-cream px-4 py-3 md:hidden">
           {NAV_ITEMS.map((item) => (
             <a
               key={item}
               href={`#${item}`}
-              className="py-2 text-sm text-neutral-700"
+              className="py-2 text-sm text-ink-soft"
               onClick={() => setIsMenuOpen(false)}
             >
               {t(`nav.${item}`)}
@@ -75,7 +75,7 @@ function Header() {
                 type="button"
                 onClick={() => i18n.changeLanguage(lang)}
                 aria-pressed={i18n.resolvedLanguage === lang}
-                className="rounded border border-neutral-300 px-2 py-1 text-xs uppercase text-neutral-600 aria-pressed:bg-neutral-800 aria-pressed:text-white"
+                className="rounded border border-border px-2 py-1 text-xs uppercase text-ink-soft aria-pressed:border-terracotta aria-pressed:bg-terracotta aria-pressed:text-cream"
               >
                 {lang}
               </button>
