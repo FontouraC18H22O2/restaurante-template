@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022"],
+    // "DOM" aqui não é sobre o browser — dá-nos os tipos Request/Response/console
+    // (Web APIs) que o runtime Edge da Vercel expõe, sem depender de "@types/node"
+    // (ver api/_lib/env.d.ts para o único global que falta: "process").
+    "lib": ["ES2022", "DOM"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"],
+    "types": [],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
