@@ -1,4 +1,4 @@
-import type { FormEvent } from 'react'
+import { useMemo, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useFormSubmission } from '../hooks/useFormSubmission'
 import { RESERVATION_TIME_SLOTS } from '../data/reservationSlots'
@@ -6,6 +6,11 @@ import HoneypotField from './HoneypotField'
 import FormField from './FormField'
 import FormSelect from './FormSelect'
 import FormTextArea from './FormTextArea'
+
+function currentTimeHHMM(): string {
+  const now = new Date()
+  return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
+}
 
 function ReservationForm() {
   const { t } = useTranslation()
@@ -19,6 +24,19 @@ function ReservationForm() {
   maxDate.setDate(maxDate.getDate() + 30)
   const todayISO = today.toISOString().slice(0, 10)
   const maxDateISO = maxDate.toISOString().slice(0, 10)
+
+  // Data e hora ficam controladas para conseguirmos filtrar os horários já
+  // passados quando a data escolhida é hoje (ex: às 21h já não faz sentido
+  // mostrar o horário das 19h). Ao mudar de data, a hora escolhida é limpa,
+  // porque um horário válido para outro dia pode já não fazer sentido.
+  const [date, setDate] = useState(todayISO)
+  const [time, setTime] = useState('')
+
+  const availableTimeSlots = useMemo(() => {
+    if (date !== todayISO) return RESERVATION_TIME_SLOTS
+    const now = currentTimeHHMM()
+    return RESERVATION_TIME_SLOTS.filter((slot) => slot > now)
+  }, [date, todayISO])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -36,7 +54,13 @@ function ReservationForm() {
       website: data.get('website'),
     })
 
-    if (ok) form.reset()
+    if (ok) {
+      form.reset()
+      // form.reset() só repõe os campos não controlados — data/hora são
+      // controlados por estado do React, por isso repomos à parte.
+      setDate(todayISO)
+      setTime('')
+    }
   }
 
   if (status === 'success') {
@@ -100,13 +124,25 @@ function ReservationForm() {
         required
         min={todayISO}
         max={maxDateISO}
+        value={date}
+        onChange={(event) => {
+          setDate(event.target.value)
+          setTime('')
+        }}
       />
 
-      <FormSelect id="reservation-time" name="time" label={t('forms.reservation.time')} required defaultValue="">
+      <FormSelect
+        id="reservation-time"
+        name="time"
+        label={t('forms.reservation.time')}
+        required
+        value={time}
+        onChange={(event) => setTime(event.target.value)}
+      >
         <option value="" disabled>
-          {t('forms.reservation.selectTime')}
+          {availableTimeSlots.length > 0 ? t('forms.reservation.selectTime') : t('forms.reservation.noTimesToday')}
         </option>
-        {RESERVATION_TIME_SLOTS.map((slot) => (
+        {availableTimeSlots.map((slot) => (
           <option key={slot} value={slot}>
             {slot}
           </option>

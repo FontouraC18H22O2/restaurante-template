@@ -42,21 +42,38 @@ function isValidReservationDate(value: string): boolean {
   return date >= today && date <= maxDate
 }
 
-export const reservationSchema = z.object({
-  name: z.string().trim().min(1, 'Nome obrigatório').max(NAME_MAX),
-  email: z.email('Email inválido').max(EMAIL_MAX),
-  phone: z.string().trim().min(1, 'Telefone obrigatório').max(PHONE_MAX),
-  // Formato ISO simples "AAAA-MM-DD", validado nos limites de data pelo refine abaixo.
-  date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Data inválida')
-    .refine(isValidReservationDate, 'Escolhe uma data entre hoje e os próximos 30 dias'),
-  // Só aceita um dos horários fixos definidos em src/data/reservationSlots.ts
-  // (necessário para conseguirmos somar reservas por horário e controlar a lotação).
-  time: z.enum(RESERVATION_TIME_SLOTS, { message: 'Hora inválida' }),
-  guests: z.coerce.number().int().min(1, 'Mínimo de 1 pessoa').max(20, 'Máximo de 20 pessoas'),
-  notes: z.string().trim().max(MESSAGE_MAX).optional().or(z.literal('')),
-  website: honeypot,
-})
+// Se a data escolhida for hoje, a hora tem de ainda estar no futuro — mantido
+// em sincronia com o filtro equivalente em src/components/ReservationForm.tsx
+// (que já nem mostra as horas passadas no dropdown; isto é a garantia a sério).
+function isReservationSlotAvailable(dateValue: string, time: string): boolean {
+  const now = new Date()
+  const todayLocalISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+  if (dateValue !== todayLocalISO) return true
+
+  const nowHHMM = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
+  return time > nowHHMM
+}
+
+export const reservationSchema = z
+  .object({
+    name: z.string().trim().min(1, 'Nome obrigatório').max(NAME_MAX),
+    email: z.email('Email inválido').max(EMAIL_MAX),
+    phone: z.string().trim().min(1, 'Telefone obrigatório').max(PHONE_MAX),
+    // Formato ISO simples "AAAA-MM-DD", validado nos limites de data pelo refine abaixo.
+    date: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, 'Data inválida')
+      .refine(isValidReservationDate, 'Escolhe uma data entre hoje e os próximos 30 dias'),
+    // Só aceita um dos horários fixos definidos em src/data/reservationSlots.ts
+    // (necessário para conseguirmos somar reservas por horário e controlar a lotação).
+    time: z.enum(RESERVATION_TIME_SLOTS, { message: 'Hora inválida' }),
+    guests: z.coerce.number().int().min(1, 'Mínimo de 1 pessoa').max(20, 'Máximo de 20 pessoas'),
+    notes: z.string().trim().max(MESSAGE_MAX).optional().or(z.literal('')),
+    website: honeypot,
+  })
+  .refine((data) => isReservationSlotAvailable(data.date, data.time), {
+    message: 'Esse horário já passou — escolhe outra hora',
+    path: ['time'],
+  })
 
 export type ReservationPayload = z.infer<typeof reservationSchema>

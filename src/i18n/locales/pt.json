@@ -42,6 +42,7 @@
       "date": "Data",
       "time": "Hora",
       "selectTime": "Escolhe uma hora",
+      "noTimesToday": "Já não há horários disponíveis hoje",
       "guests": "Número de pessoas",
       "notes": "Notas (opcional)",
       "submit": "Pedir reserva",

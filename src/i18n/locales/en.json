@@ -42,6 +42,7 @@
       "date": "Date",
       "time": "Time",
       "selectTime": "Choose a time",
+      "noTimesToday": "No times left available today",
       "guests": "Number of guests",
       "notes": "Notes (optional)",
       "submit": "Request reservation",
