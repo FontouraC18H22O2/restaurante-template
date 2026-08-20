@@ -1,5 +1,39 @@
 {
-  "common": {
-    "skeletonReady": "Restaurant — project skeleton ready"
+  "nav": {
+    "hero": "Home",
+    "menu": "Menu",
+    "about": "About",
+    "gallery": "Gallery",
+    "reservation": "Reservations",
+    "contact": "Contact"
+  },
+  "sections": {
+    "hero": {
+      "title": "Welcome to the Restaurant",
+      "subtitle": "Content coming soon"
+    },
+    "menu": {
+      "title": "Our Menu",
+      "placeholder": "Content coming soon"
+    },
+    "about": {
+      "title": "About Us",
+      "placeholder": "Content coming soon"
+    },
+    "gallery": {
+      "title": "Gallery",
+      "placeholder": "Content coming soon"
+    },
+    "reservation": {
+      "title": "Reservations",
+      "placeholder": "Content coming soon"
+    },
+    "contact": {
+      "title": "Contact",
+      "placeholder": "Content coming soon"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved."
   }
 }

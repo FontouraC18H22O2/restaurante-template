@@ -12,3 +12,6 @@ dist-ssr
 .vercel
 *.log
 .DS_Store
+
+# Ficheiros internos do Claude Code
+.claude/

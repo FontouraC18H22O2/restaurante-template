@@ -1,5 +1,39 @@
 {
-  "common": {
-    "skeletonReady": "Restaurante — esqueleto do projeto pronto"
+  "nav": {
+    "hero": "Início",
+    "menu": "Menu",
+    "about": "Sobre",
+    "gallery": "Galeria",
+    "reservation": "Reservas",
+    "contact": "Contacto"
+  },
+  "sections": {
+    "hero": {
+      "title": "Bem-vindo ao Restaurante",
+      "subtitle": "Conteúdo em breve"
+    },
+    "menu": {
+      "title": "O Nosso Menu",
+      "placeholder": "Conteúdo em breve"
+    },
+    "about": {
+      "title": "Sobre Nós",
+      "placeholder": "Conteúdo em breve"
+    },
+    "gallery": {
+      "title": "Galeria",
+      "placeholder": "Conteúdo em breve"
+    },
+    "reservation": {
+      "title": "Reservas",
+      "placeholder": "Conteúdo em breve"
+    },
+    "contact": {
+      "title": "Contacto",
+      "placeholder": "Conteúdo em breve"
+    }
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados."
   }
 }

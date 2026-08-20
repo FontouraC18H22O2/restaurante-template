@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+/* Scroll suave até cada secção ao clicar nos links do menu (âncoras #id) */
+html {
+  scroll-behavior: smooth;
+}
