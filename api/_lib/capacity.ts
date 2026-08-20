@@ -3,11 +3,16 @@ import { MAX_GUESTS_PER_SLOT } from '../../src/data/reservationSlots'
 
 let client: Redis | null = null
 
-function getClient(): Redis {
+// Enquanto o Upstash Redis não estiver configurado (variáveis de ambiente
+// por preencher), o controlo de lotação fica desativado — as reservas
+// continuam a ser aceites normalmente, só sem verificar a capacidade.
+// Isto evita que o formulário de reservas fique completamente partido
+// antes de configurarmos o Redis (ver .env.example).
+function getClient(): Redis | null {
   const url = process.env.UPSTASH_REDIS_REST_URL
   const token = process.env.UPSTASH_REDIS_REST_TOKEN
   if (!url || !token) {
-    throw new Error('UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN não estão definidas')
+    return null
   }
   client ??= new Redis({ url, token })
   return client
@@ -31,11 +36,14 @@ function slotKey(date: string, time: string): string {
  * O INCRBY do Redis é atómico mesmo com pedidos concorrentes — só o último
  * a ultrapassar o limite é que falha (ex: o Luís, no exemplo do README).
  *
- * Devolve true se a reserva foi aceite (lugar garantido), false se o
+ * Devolve true se a reserva foi aceite (lugar garantido, ou lotação
+ * desativada por o Redis ainda não estar configurado), false se o
  * horário já está cheio.
  */
 export async function tryReserveSlot(date: string, time: string, guests: number): Promise<boolean> {
   const redis = getClient()
+  if (!redis) return true
+
   const key = slotKey(date, time)
 
   const newTotal = await redis.incrby(key, guests)
@@ -57,5 +65,7 @@ export async function tryReserveSlot(date: string, time: string, guests: number)
  */
 export async function releaseSlot(date: string, time: string, guests: number): Promise<void> {
   const redis = getClient()
+  if (!redis) return
+
   await redis.decrby(slotKey(date, time), guests)
 }
